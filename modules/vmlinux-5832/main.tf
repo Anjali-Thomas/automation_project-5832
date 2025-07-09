@@ -114,4 +114,3 @@ resource "azurerm_virtual_machine_extension" "monitor" {
     workspaceKey = var.log_analytics_primary_key
   })
 }
-

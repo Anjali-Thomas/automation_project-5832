@@ -55,4 +55,3 @@ module "database" {
   rg_name  = module.rgroup.rg_name
   location = "East US"
 }
-

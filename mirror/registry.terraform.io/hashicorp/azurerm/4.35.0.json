@@ -1,0 +1,10 @@
+{
+  "archives": {
+    "linux_amd64": {
+      "hashes": [
+        "h1:sxwmvyk9CQ9stspIPIz7ySbpiqDCEcl2gVEGM7omQoY="
+      ],
+      "url": "terraform-provider-azurerm_4.35.0_linux_amd64.zip"
+    }
+  }
+}

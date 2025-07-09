@@ -37,4 +37,3 @@ output "vnet_and_subnet" {
     subnet = "5832-SUBNET"
   }
 }
-

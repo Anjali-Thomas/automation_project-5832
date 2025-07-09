@@ -67,5 +67,22 @@ resource "azurerm_virtual_machine_extension" "antimalware" {
   type                 = "IaaSAntimalware"
   type_handler_version = "1.5"
   settings             = "{}"
+
+}
+
+
+resource "azurerm_virtual_machine_extension" "winrm" {
+  name                       = "enable-winrm"
+  virtual_machine_id         = azurerm_windows_virtual_machine.vm[0].id
+  publisher                  = "Microsoft.Compute"
+  type                       = "CustomScriptExtension"
+  type_handler_version       = "1.10"
+  auto_upgrade_minor_version = true
+
+  settings = <<SETTINGS
+  {
+    "commandToExecute": "powershell -Command \"Enable-PSRemoting -Force; Set-Item -Path WSMan:\\\\localhost\\Service\\AllowUnencrypted -Value true; Set-Item -Path WSMan:\\\\localhost\\Service\\Auth\\Basic -Value true; Set-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' -Enabled True\""
+  }
+SETTINGS
 }
 
