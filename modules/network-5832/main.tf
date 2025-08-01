@@ -19,19 +19,19 @@ resource "azurerm_network_security_group" "nsg" {
 
   security_rule {
     name                       = "AllowSSH"
-    priority                   = 103
+    priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "5985"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
 
   security_rule {
     name                       = "AllowRDP"
-    priority                   = 1001
+    priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -43,7 +43,7 @@ resource "azurerm_network_security_group" "nsg" {
 
   security_rule {
     name                       = "AllowWinRM"
-    priority                   = 1000
+    priority                   = 102
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -55,7 +55,7 @@ resource "azurerm_network_security_group" "nsg" {
 
   security_rule {
     name                       = "AllowHTTP"
-    priority                   = 130
+    priority                   = 103
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"

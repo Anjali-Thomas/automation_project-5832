@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Disable all swap devices on /dev/sdc*
+      shell: |
+        for swapdev in $(swapon --noheadings --show=NAME); do
+          if [[ $swapdev == /dev/sdc* ]]; then
+            swapoff $swapdev || true
+          fi
+        done
+
+    - name: Unmount all /dev/sdc partitions
+      shell: |
+        for mp in $(lsblk -nr -o MOUNTPOINT /dev/sdc* | grep -v '^$'); do
+          umount $mp || true
+        done
+
+    - name: Wipe filesystem signatures on /dev/sdc
+      command: wipefs -a /dev/sdc
+      ignore_errors: yes
+
+    - name: Wipe partition table on /dev/sdc
+      command: sgdisk --zap-all /dev/sdc
+      ignore_errors: yes
+
+    - name: Inform kernel of partition changes
+      command: partprobe /dev/sdc
+      ignore_errors: yes
+
+  roles:
+    - role: repos-5832
+    - role: profile-5832
+    - role: user-5832
+    - role: datadisk-5832
+    - role: webserver-5832
+

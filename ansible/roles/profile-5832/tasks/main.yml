@@ -1,0 +1,10 @@
+---
+- name: Update system profile
+  lineinfile:
+    path: /etc/profile
+    line: "{{ item }}"
+    insertafter: EOF
+  loop:
+    - "#Test block added by Ansible……n01725832"
+    - "export TMOUT=1500"
+

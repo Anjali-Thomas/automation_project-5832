@@ -1,0 +1,26 @@
+---
+- name: Ensure cloudadmins group exists
+  group:
+    name: cloudadmins
+    state: present
+
+- name: Create users
+  user:
+    name: "{{ item }}"
+    groups: "cloudadmins,wheel"
+    append: yes
+    shell: /bin/bash
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+  loop:
+    - user100
+    - user200
+    - user300
+
+- name: Fetch private key for user100
+  fetch:
+    src: /home/user100/.ssh/id_rsa
+    dest: ./user100_id_rsa
+    flat: yes
+

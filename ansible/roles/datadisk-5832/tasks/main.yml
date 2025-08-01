@@ -1,0 +1,60 @@
+---
+- name: Create 4GB partition on /dev/sdc
+  parted:
+    device: /dev/sdc
+    number: 1
+    state: present
+    part_start: 0%
+    part_end: 40%
+    label: gpt
+
+- name: Create 5GB partition on /dev/sdc
+  parted:
+    device: /dev/sdc
+    number: 2
+    state: present
+    part_start: 40%
+    part_end: 90%
+
+- name: Format part1 as XFS
+  filesystem:
+    fstype: xfs
+    dev: /dev/sdc1
+
+- name: Check if /dev/sdc2 exists
+  stat:
+    path: /dev/sdc2
+  register: sdc2
+
+- name: Format part2 as EXT4
+  filesystem:
+    fstype: ext4
+    dev: /dev/sdc2
+  when: sdc2.stat.exists
+
+- name: Create mount point for part1
+  file:
+    path: /part1
+    state: directory
+
+- name: Create mount point for part2 (only if sdc2 exists)
+  file:
+    path: /part2
+    state: directory
+  when: sdc2.stat.exists
+
+- name: Mount part1
+  mount:
+    path: /part1
+    src: /dev/sdc1
+    fstype: xfs
+    state: mounted
+
+- name: Mount part2 (only if sdc2 exists)
+  mount:
+    path: /part2
+    src: /dev/sdc2
+    fstype: ext4
+    state: mounted
+  when: sdc2.stat.exists
+

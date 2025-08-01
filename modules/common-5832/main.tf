@@ -22,31 +22,31 @@ resource "azurerm_storage_account" "storage" {
 }
 
 
-resource "azurerm_resource_group_template_deployment" "dummy1" {
-  name                = "dummy-deploy-1"
-  resource_group_name = var.rg_name
-  deployment_mode     = "Incremental"
+#resource "azurerm_resource_group_template_deployment" "dummy1" {
+ # name                = "dummy-deploy-1"
+ # resource_group_name = var.rg_name
+#  deployment_mode     = "Incremental"
 
-  template_content = jsonencode({
-    "$schema" = "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#"
-    "contentVersion" = "1.0.0.0"
-    "resources" = []
-  })
+#  template_content = jsonencode({
+ #   "$schema" = "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#"
+  #  "contentVersion" = "1.0.0.0"
+   # "resources" = []
+ # })
+#
+ # parameters_content = "{}"
+#}
 
-  parameters_content = "{}"
-}
+#resource "azurerm_resource_group_template_deployment" "dummy2" {
+ # name                = "dummy-deploy-2"
+  #resource_group_name = var.rg_name
+  #deployment_mode     = "Incremental"
 
-resource "azurerm_resource_group_template_deployment" "dummy2" {
-  name                = "dummy-deploy-2"
-  resource_group_name = var.rg_name
-  deployment_mode     = "Incremental"
+  #template_content = jsonencode({
+   # "$schema" = "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#"
+   # "contentVersion" = "1.0.0.0"
+   # "resources" = []
+ # })
 
-  template_content = jsonencode({
-    "$schema" = "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#"
-    "contentVersion" = "1.0.0.0"
-    "resources" = []
-  })
-
-  parameters_content = "{}"
-}
+  #parameters_content = "{}"
+#}
 
